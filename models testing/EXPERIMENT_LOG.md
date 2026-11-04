@@ -6,24 +6,31 @@ This file is the authoritative record of experiments, measured results, failures
 
 | ID | Date (UTC) | Stage | System / model | Test | Result | Evidence |
 |---|---|---|---|---|---|---|
-| — | — | — | — | No experiments run yet | Pending system discovery | — |
+| SYS-001 | 2026-11-04 (local time, Asia/Kolkata) | System discovery | Dell Precision 3650 Tower | Read-only host inventory | Partial: OS, CPU, GPU, memory and storage observed; Docker absent; sudo denied | User-provided terminal photos and typed output |
 
 ## Baseline system
 
-**Status:** Not yet inspected. Do not assume hardware specifications from earlier planning notes; verify on the machine being tested.
+**Status:** Partially inspected on 2026-11-04 from user-provided terminal output. Values below are observations, not independently collected by the assistant. Memory figures were transcribed by the user and are approximate.
 
 | Component | Measured value | Evidence / command | Status |
 |---|---|---|---|
-| Ubuntu version | Pending | `cat /etc/os-release` | Not measured |
-| Kernel | Pending | `uname -a` | Not measured |
-| CPU | Pending | `lscpu` | Not measured |
-| System RAM | Pending | `free -h` | Not measured |
-| GPU model / VRAM | Pending | `nvidia-smi` | Not measured |
-| NVIDIA driver / CUDA | Pending | `nvidia-smi` | Not measured |
-| Storage and free space | Pending | `lsblk`, `df -h` | Not measured |
-| Docker | Pending | `docker version` | Not measured |
-| Docker Compose | Pending | `docker compose version` | Not measured |
-| Network | Pending | `ip -brief address` | Not measured |
+| Workstation | Dell Precision 3650 Tower | `hostnamectl` photo | Observed |
+| Ubuntu version | Ubuntu 24.04.4 LTS | `hostnamectl` photo | Observed |
+| Kernel | `6.8.0-136-generic` | `hostnamectl` photo | Observed |
+| Architecture | x86_64 | `lscpu` photo | Observed |
+| CPU | Intel Core i7-10700K, 8 cores / 16 threads | `lscpu` photo | Observed |
+| System RAM | Approximately 15 GiB total; user reported ~2.1 GiB used and ~10 GiB free/available | User-transcribed `free -h` output | Approximate; verify later |
+| Swap | 6 GiB total, 0 used | User-transcribed `free -h` output | Approximate; verify later |
+| GPU model / VRAM | NVIDIA GeForce RTX 5070; 12,227 MiB total VRAM | `nvidia-smi` photo | Observed |
+| NVIDIA driver | 610.43.02 | `nvidia-smi` photo | Observed |
+| Storage `/` | 79 GB total, 51 GB available | `df -h` photo | Observed |
+| Storage `/home` | 916 GB total, 846 GB available | `df -h` photo | Observed |
+| Storage `/clusterhome` | 590 GB total, 491 GB available | `df -h` photo | Observed; network mount |
+| Storage `/srv/datasets`, `/srv/apps`, `/srv/cosmos` | Each 98 GB total, 7.9 GB available (92% used) | `df -h` photo | Observed; avoid for new data |
+| Docker | Not installed (`docker` command unavailable) | User report after `docker --version` | Observed |
+| Docker Compose | Not checked successfully because Docker is absent | — | Pending |
+| Administrator access | `sudo -v` returned permission denied | User report | Blocker; admin rights required |
+| Network / listening ports | Pending | `ip -brief address`, `ss -lnt` | Not measured |
 
 ## Experiment entry template
 
@@ -81,3 +88,14 @@ Copy this section for each experiment.
 7. Mark failed, interrupted and partial runs. Never silently discard them.
 8. Record resource measurements and repeatability information; include run count and variance when practical.
 9. A test is "passed" only when its stated acceptance criteria and evidence are recorded.
+
+
+## SYS-001 — Initial host discovery and access check (2026-11-04)
+
+- **Actions:** Read-only inspection using `hostnamectl`, `nvidia-smi`, `free -h`, `lscpu`, `df -h`, `docker --version`, `id`, and `sudo -v`.
+- **Findings:** See baseline system table above.
+- **Docker / Harbor:** Neither installation has been attempted. Docker CLI was not present.
+- **Blocker:** The logged-in `student` account (`uid=21000`, primary group `students`) received permission denied from `sudo -v`. No administrator privileges have been established.
+- **Storage caution:** `/srv/datasets`, `/srv/apps`, and `/srv/cosmos` each have only 7.9 GB available. Do not place Docker/Harbor data there. `/home` has 846 GB available, but suitability and ownership must be confirmed by the system administrator.
+- **Decision:** Stop before installation. Obtain authorized administrator access or an administrator-assisted installation. Do not attempt privilege escalation or bypass institutional controls.
+- **Model selection:** Deferred until infrastructure setup is ready, per user instruction.
