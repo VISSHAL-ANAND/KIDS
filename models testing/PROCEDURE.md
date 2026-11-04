@@ -6,17 +6,16 @@ This document records the intended path, commands, configuration decisions, acce
 
 **Goal:** Discover the target Ubuntu machine, install and validate Docker and Harbor, install and validate a selected local model, then run the requested coding and agent benchmarks. Track measured results in `EXPERIMENT_LOG.md`.
 
-**Target machine:** Ubuntu host with an NVIDIA RTX 5090 reported by the user. All other specifications are unverified until collected from the target host.
+**Target machine (observed 2026-11-04):** Dell Precision 3650 Tower; Ubuntu 24.04.4 LTS; kernel 6.8.0-136-generic; x86_64; Intel Core i7-10700K (8 cores / 16 threads); NVIDIA GeForce RTX 5070 with 12,227 MiB VRAM; NVIDIA driver 610.43.02; approximately 15 GiB RAM and 6 GiB swap (user-transcribed); root filesystem 79 GB total / 51 GB available; `/home` 916 GB total / 846 GB available.
 
-**Prior planning context (not yet verified on this machine):**
-- GPU: RTX 5090; previously reported 32 GB VRAM.
-- System RAM: previously reported approximately 35 GB.
+**Earlier planning context (not applicable as verified hardware on this host):**
+- An earlier plan mentioned RTX 5090 / 32 GB VRAM and approximately 35 GB RAM; the inspected host instead reports RTX 5070 / 12,227 MiB VRAM and approximately 15 GiB RAM.
 - Model shorthand: "Qwen 3.8 - 27B"; exact model identity is unresolved.
 - Proposed format/quantization: GGUF / Q5_K_M; the prior "4-bit" description needs verification against the exact artifact.
 - Proposed inference runtime: llama.cpp server.
 - LM Studio was previously considered as a single-user client; it is not a prerequisite for the server benchmark workflow.
 
-Do not assume this is the same machine or that reported resource allocation is available. Verify actual hardware, driver, storage and permissions before installation.
+**Access status:** The logged-in `student` account (UID 21000, group `students`) received permission denied from `sudo -v`. Docker is not installed. Installation is blocked until an authorized administrator provides access or performs the setup. The mounts `/srv/datasets`, `/srv/apps`, and `/srv/cosmos` each have only 7.9 GB available (92% used); do not use them for new Docker/Harbor data. `/home` is a candidate pending administrator confirmation of quota, ownership and policy.
 
 ### Execution discipline
 
@@ -212,4 +211,11 @@ The experiment is complete only when:
 
 | Date | Change |
 |---|---|
-| 2026-11-04 | Initial procedure created; no host installation or benchmark execution has been performed by this document's author. |
+| 2026-11-04 | Initial procedure created; host diagnostics and administrator-access blocker recorded. No installation or benchmark execution performed. |
+
+
+## Execution record — 2026-11-04
+
+Phase 1 was partially completed using user-provided terminal photos and transcribed output. `hostnamectl`, `nvidia-smi`, `lscpu`, `free -h`, and `df -h` findings are summarized in the target-machine inventory above. Docker is absent. The account check showed UID 21000 and group `students`; `sudo -v` returned permission denied. No packages were installed and no system settings were changed. Podman status and listening ports remain unchecked.
+
+**Next prerequisite:** Ask the workstation owner or IT administrator to provide approved administrator access or perform the Docker installation. Confirm that Docker and Harbor are permitted on this host and agree on persistent storage and network/port allocation. After that, resume with the official Docker Engine installation for Ubuntu 24.04, then validate Docker before deploying Harbor.
