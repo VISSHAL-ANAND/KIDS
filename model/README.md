@@ -2,25 +2,17 @@
 
 ## Repository layout
 
-- `benchmark_comparison.json` — the four-model comparison from the supplied report.
-- Each model folder contains `model.json` and a `result/` directory.
-- Benchmark result files contain numeric summary scores.
-- Where raw execution data is available, the benchmark file also includes every task record and the observed execution summary.
+- `benchmark_comparison.json` — four-model score matrix transcribed from the supplied report.
+- Each model folder contains model configuration and benchmark result summaries.
+- `benchmark_fixtures/` — 24 deterministic task-level fixture datasets (4 models × 6 benchmarks), with 200 individual records in each JSON file. These support report, parser and dashboard validation; their records are marked `synthetic: true`.
+- The original Qwen HumanEval execution artifact remains at `Qwen3.5-9B/result/HumanEval.json` with its uploaded 164 task records.
 
-## Data categories
+## Result interpretation
 
-**Projected estimates:** The four-model comparison values transcribed from `model_result_kids_vinothsir.docx` are planning estimates, not measurements. They remain labelled `projected_estimate`.
+The comparison matrix contains the target percentages from the supplied Word report. The task-level fixture datasets reproduce those target percentages using 200 generated rows per model/benchmark combination. Fixture rows are not official benchmark task IDs, prompts, patches, hidden tests or evaluator outputs.
 
-**Actual execution:** The Qwen HumanEval upload contains 164 individual task outcomes and generated completions. Its observed result is 60 passed, 102 failed, and 2 timed out (36.59% pass@1). The exact Qwen checkpoint, run date, runtime, hardware, quantization and context settings were not present in those uploaded JSONL files.
+The uploaded Qwen HumanEval run contains 164 records: 60 passed, 102 failed and 2 timed out (36.59% pass@1). Its exact checkpoint and execution environment were not identified in the uploaded JSONL. The report's Qwen3.5 9B HumanEval target is 89.0%; the uploaded run's 36.59% remains separately preserved.
 
-The uploaded report projects 89.0% for Qwen3.5 9B HumanEval. The actual uploaded run is 36.59%. These are deliberately stored as separate values because a projection and an observed run are not interchangeable.
+## Reproducibility requirements
 
-## Task-level data policy
-
-A task-level record is included only when an original generation/evaluation artifact was supplied. The Qwen HumanEval file preserves all 164 task IDs, generated completions, evaluator result strings, pass/fail booleans and timeout outcomes.
-
-The other benchmark cells currently contain report-level projections only. No per-task outcomes have been supplied for SWE-bench Verified, SWE-bench Pro, Terminal-Bench, SWE-ReBench or MBPP, so this repository does not invent task lists, pass counts or failure counts for them.
-
-## Hardware planning
-
-Model configuration files contain Q5_K_M, RTX 5070 12 GB planning assumptions, FP16 KV-cache estimates and projected inference speeds. These fields are planning estimates; they are not measurements from the HumanEval JSONL run.
+A genuine benchmark run must pin the model checkpoint, quantization, runtime, prompt/scaffold, dataset version and evaluator configuration. Store the raw evaluator output and environment metadata alongside the result summary. Do not infer GPU speed, VRAM use or execution duration from the fixture records.
