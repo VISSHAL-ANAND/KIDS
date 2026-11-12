@@ -1,0 +1,26 @@
+{
+  "model_name": "DeepSeek R1 Distill Qwen 7B",
+  "benchmark": {
+    "name": "MBPP",
+    "file_name": "MBPP.json",
+    "metric": "pass_at_1"
+  },
+  "result": {
+    "value": 61,
+    "unit": "percent"
+  },
+  "evaluation_context": {
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "gpu_vram_gib": 12,
+    "quantization": "Q5_K_M",
+    "context_tokens": 8192,
+    "runtime": "llama.cpp CUDA (estimated configuration)",
+    "data_status": "projected_estimate",
+    "measured": false
+  },
+  "source": {
+    "document": "model_result_kids_vinothsir.docx",
+    "section": "1. Benchmark results — fixed numeric estimates",
+    "note": "All numbers are transcribed from the uploaded report. They are point estimates, not measured benchmark runs."
+  }
+}

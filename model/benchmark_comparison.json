@@ -1,0 +1,103 @@
+{
+  "title": "Local AI Coding Model Benchmark Comparison",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "vram_gib": 12,
+    "quantization": "Q5_K_M",
+    "runtime": "llama.cpp CUDA (estimated configuration)",
+    "context_tokens_for_speed_estimate": 8192,
+    "gpu_offload": "All model layers on GPU (assumed in source report)",
+    "flash_attention": true,
+    "active_sequences": 1
+  },
+  "quantization": "Q5_K_M",
+  "data_status": "projected_estimate",
+  "measured": false,
+  "benchmarks": [
+    {
+      "name": "SWE-bench Verified",
+      "metric": "resolved_rate",
+      "unit": "percent",
+      "results_by_model": {
+        "Qwen3.5 9B": 43,
+        "Qwen3 8B": 8,
+        "DeepSeek R1 Distill Qwen 7B": 9.5,
+        "MiMo-7B-RL (no-MTP GGUF)": 14
+      }
+    },
+    {
+      "name": "SWE-bench Pro",
+      "metric": "resolved_rate",
+      "unit": "percent",
+      "results_by_model": {
+        "Qwen3.5 9B": 32.5,
+        "Qwen3 8B": 4,
+        "DeepSeek R1 Distill Qwen 7B": 4.5,
+        "MiMo-7B-RL (no-MTP GGUF)": 7
+      }
+    },
+    {
+      "name": "Terminal-Bench 2.1",
+      "metric": "score",
+      "unit": "percent",
+      "results_by_model": {
+        "Qwen3.5 9B": 18.5,
+        "Qwen3 8B": 8,
+        "DeepSeek R1 Distill Qwen 7B": 7,
+        "MiMo-7B-RL (no-MTP GGUF)": 11.5
+      }
+    },
+    {
+      "name": "SWE-ReBench",
+      "metric": "resolved_rate",
+      "unit": "percent",
+      "results_by_model": {
+        "Qwen3.5 9B": 14,
+        "Qwen3 8B": 5.5,
+        "DeepSeek R1 Distill Qwen 7B": 6,
+        "MiMo-7B-RL (no-MTP GGUF)": 8.5
+      }
+    },
+    {
+      "name": "HumanEval",
+      "metric": "pass_at_1",
+      "unit": "percent",
+      "results_by_model": {
+        "Qwen3.5 9B": 89,
+        "Qwen3 8B": 82,
+        "DeepSeek R1 Distill Qwen 7B": 69,
+        "MiMo-7B-RL (no-MTP GGUF)": 82
+      }
+    },
+    {
+      "name": "MBPP",
+      "metric": "pass_at_1",
+      "unit": "percent",
+      "results_by_model": {
+        "Qwen3.5 9B": 73,
+        "Qwen3 8B": 75,
+        "DeepSeek R1 Distill Qwen 7B": 61,
+        "MiMo-7B-RL (no-MTP GGUF)": 74
+      }
+    }
+  ],
+  "final_ranking_projected": [
+    "Qwen3.5 9B",
+    "MiMo-7B-RL (no-MTP GGUF)",
+    "Qwen3 8B",
+    "DeepSeek R1 Distill Qwen 7B"
+  ],
+  "source": {
+    "source_document": "model_result_kids_vinothsir.docx",
+    "source_sections": {
+      "benchmark_results": "1. Benchmark results — fixed numeric estimates",
+      "model_memory": "2. Q5_K_M model size, KV cache and VRAM",
+      "kv_architecture": "FP16 KV-cache calculation",
+      "inference_speed": "3. RTX 5070 inference speed — single numeric estimates",
+      "ranking": "4. Which model is best for coding?"
+    },
+    "data_status": "projected_estimate",
+    "measured_on_target_gpu": false,
+    "note": "All numbers are transcribed from the uploaded report. They are point estimates, not measured benchmark runs."
+  }
+}
