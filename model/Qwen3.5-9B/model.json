@@ -34,5 +34,19 @@
   },
   "coding_rank_projection": 1,
   "status": "projected_estimate",
-  "measured": false
+  "measured": false,
+  "actual_benchmark_runs": [
+    {
+      "benchmark": "HumanEval",
+      "execution_status": "completed",
+      "total_tasks": 164,
+      "passed": 60,
+      "failed": 102,
+      "timed_out": 2,
+      "pass_at_1_percent": 36.59,
+      "exact_checkpoint_confirmed": false,
+      "environment_metadata_complete": false,
+      "result_file": "result/HumanEval.json"
+    }
+  ]
 }

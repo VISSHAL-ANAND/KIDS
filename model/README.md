@@ -1,30 +1,26 @@
 # Model Benchmark Results
 
-This folder contains the model configurations and benchmark result records.
+## Repository layout
 
-## Layout
+- `benchmark_comparison.json` — the four-model comparison from the supplied report.
+- Each model folder contains `model.json` and a `result/` directory.
+- Benchmark result files contain numeric summary scores.
+- Where raw execution data is available, the benchmark file also includes every task record and the observed execution summary.
 
-- `benchmark_comparison.json` — side-by-side score comparison.
-- Each model directory contains `model.json` and a `result/` directory.
-- Each benchmark file records the test definition, execution status, pass/fail fields and score.
+## Data categories
 
-## Result interpretation
+**Projected estimates:** The four-model comparison values transcribed from `model_result_kids_vinothsir.docx` are planning estimates, not measurements. They remain labelled `projected_estimate`.
 
-The numeric scores in these files are **projected estimates**, not results from completed benchmark runs. No SWE-bench, SWE-bench Pro, Terminal-Bench, SWE-ReBench, HumanEval or MBPP execution has been recorded for these model/GPU combinations.
+**Actual execution:** The Qwen HumanEval upload contains 164 individual task outcomes and generated completions. Its observed result is 60 passed, 102 failed, and 2 timed out (36.59% pass@1). The exact Qwen checkpoint, run date, runtime, hardware, quantization and context settings were not present in those uploaded JSONL files.
 
-Therefore each benchmark record deliberately has:
-- `test.execution_status = "not_run"`
-- `test.total_tests = null`
-- `test.passed = null`
-- `test.failed = null`
-- `result.status = "projected_estimate"`
+The uploaded report projects 89.0% for Qwen3.5 9B HumanEval. The actual uploaded run is 36.59%. These are deliberately stored as separate values because a projection and an observed run are not interchangeable.
 
-Null pass/fail counts mean there is no execution evidence to count. They must be filled with measured integers only after a benchmark run, with its dataset version, harness, run date and raw output captured.
+## Task-level data policy
 
-## Hardware planning assumptions
+A task-level record is included only when an original generation/evaluation artifact was supplied. The Qwen HumanEval file preserves all 164 task IDs, generated completions, evaluator result strings, pass/fail booleans and timeout outcomes.
 
-The model configuration files capture the RTX 5070 12 GB planning target, Q5_K_M weights, FP16 KV cache, context length and estimated inference speed. These planning values are estimates and must be measured on the target host before being treated as actual performance.
+The other benchmark cells currently contain report-level projections only. No per-task outcomes have been supplied for SWE-bench Verified, SWE-bench Pro, Terminal-Bench, SWE-ReBench or MBPP, so this repository does not invent task lists, pass counts or failure counts for them.
 
-## Model naming
+## Hardware planning
 
-The second model is recorded as `Qwen3-8B`. It must not be renamed to Qwen3-Coder-8B unless the exact checkpoint is confirmed. The MiMo model is recorded as the no-MTP GGUF variant used for the memory/speed estimate.
+Model configuration files contain Q5_K_M, RTX 5070 12 GB planning assumptions, FP16 KV-cache estimates and projected inference speeds. These fields are planning estimates; they are not measurements from the HumanEval JSONL run.

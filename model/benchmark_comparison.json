@@ -87,5 +87,26 @@
     "MiMo-7B-RL (no-MTP GGUF)",
     "Qwen3 8B",
     "DeepSeek R1 Distill Qwen 7B"
+  ],
+  "actual_run_results": [
+    {
+      "model": "Qwen (mapped to Qwen3.5 9B report row; exact checkpoint unconfirmed)",
+      "benchmark": "HumanEval",
+      "total_tasks": 164,
+      "passed": 60,
+      "failed": 102,
+      "timed_out": 2,
+      "pass_at_1_percent": 36.59,
+      "unit": "%",
+      "status": "actual_uploaded_execution",
+      "report_projection_percent": 89,
+      "agrees_with_projection": false
+    }
+  ],
+  "data_notes": [
+    "Original four-model matrix scores are projected estimates from the provided Word report.",
+    "Qwen HumanEval has one uploaded task-level execution file with 164 task records.",
+    "The uploaded HumanEval execution score (36.59%) does not match the Qwen3.5 9B report projection (89.0%); both are retained separately.",
+    "No task-level execution artifacts are available yet for the remaining benchmark/model combinations."
   ]
 }
