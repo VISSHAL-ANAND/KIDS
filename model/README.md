@@ -1,31 +1,30 @@
-# Model Benchmark JSON Package
+# Model Benchmark Results
 
-## Directory layout
+This folder contains the model configurations and benchmark result records.
 
-```text
-model/
-├── benchmark_comparison.json
-├── README.md
-├── Qwen3.5-9B/
-│   ├── model.json
-│   └── result/ (six benchmark JSON files)
-├── Qwen3-8B/
-│   ├── model.json
-│   └── result/ (six benchmark JSON files)
-├── DeepSeek-R1-Distill-Qwen-7B/
-│   ├── model.json
-│   └── result/ (six benchmark JSON files)
-└── MiMo-7B-RL-no-MTP/
-    ├── model.json
-    └── result/ (six benchmark JSON files)
-```
+## Layout
 
-Each model directory contains `model.json` for model identity, Q5_K_M weight size, hardware configuration, FP16 KV cache, VRAM planning and estimated inference speed. Its `result/` directory contains one JSON file per benchmark.
+- `benchmark_comparison.json` — side-by-side score comparison.
+- Each model directory contains `model.json` and a `result/` directory.
+- Each benchmark file records the test definition, execution status, pass/fail fields and score.
 
-## Data status
+## Result interpretation
 
-All scores, VRAM figures and throughput figures are copied from `model_result_kids_vinothsir.docx`. They are projected estimates, not measurements from an RTX 5070 benchmark run. Each JSON record therefore uses `"data_status": "projected_estimate"` and `"measured": false`. Do not present these values as experimentally verified results.
+The numeric scores in these files are **projected estimates**, not results from completed benchmark runs. No SWE-bench, SWE-bench Pro, Terminal-Bench, SWE-ReBench, HumanEval or MBPP execution has been recorded for these model/GPU combinations.
 
-The Qwen entry is recorded as Qwen3-8B, matching the source report; it is not renamed to Qwen3-Coder. The MiMo entry retains the no-MTP GGUF qualifier used in the source report.
+Therefore each benchmark record deliberately has:
+- `test.execution_status = "not_run"`
+- `test.total_tests = null`
+- `test.passed = null`
+- `test.failed = null`
+- `result.status = "projected_estimate"`
 
-All sizes are in GiB. Benchmark results are percentages; the metric is recorded per benchmark.
+Null pass/fail counts mean there is no execution evidence to count. They must be filled with measured integers only after a benchmark run, with its dataset version, harness, run date and raw output captured.
+
+## Hardware planning assumptions
+
+The model configuration files capture the RTX 5070 12 GB planning target, Q5_K_M weights, FP16 KV cache, context length and estimated inference speed. These planning values are estimates and must be measured on the target host before being treated as actual performance.
+
+## Model naming
+
+The second model is recorded as `Qwen3-8B`. It must not be renamed to Qwen3-Coder-8B unless the exact checkpoint is confirmed. The MiMo model is recorded as the no-MTP GGUF variant used for the memory/speed estimate.

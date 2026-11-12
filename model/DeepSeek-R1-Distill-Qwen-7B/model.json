@@ -1,47 +1,38 @@
 {
-  "model_name": "DeepSeek R1 Distill Qwen 7B",
+  "model": "DeepSeek R1 Distill Qwen 7B",
   "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+  "parameter_scale": "7B",
   "quantization": "Q5_K_M",
-  "model_weights_gib": 5.07,
   "hardware": {
     "gpu": "NVIDIA GeForce RTX 5070",
     "vram_gib": 12,
     "quantization": "Q5_K_M",
-    "runtime": "llama.cpp CUDA (estimated configuration)",
-    "context_tokens_for_speed_estimate": 8192,
-    "gpu_offload": "All model layers on GPU (assumed in source report)",
+    "runtime": "llama.cpp CUDA (planned configuration)",
+    "context_tokens": 8192,
+    "kv_cache": "FP16",
+    "gpu_offload": "All layers (planned, subject to fit)",
     "flash_attention": true,
-    "active_sequences": 1
+    "concurrent_sequences": 1
   },
-  "kv_cache": {
-    "dtype": "FP16",
-    "context_8192_tokens_gib": 0.44,
-    "context_16384_tokens_gib": 0.88,
-    "architecture_basis": "28 layers × 4 KV heads × 128 head dim × K/V × FP16"
-  },
-  "vram_budget": {
-    "context_8192_tokens_gib": 6.71,
-    "context_16384_tokens_gib": 7.15
+  "memory": {
+    "model_weights_gib": 5.07,
+    "kv_cache": {
+      "type": "FP16",
+      "context_8192_tokens_gib": 0.44,
+      "context_16384_tokens_gib": 0.88,
+      "architecture_basis": "28 layers × 4 KV heads × 128 head dimension × K/V × FP16"
+    },
+    "total_vram_estimate_gib": {
+      "context_8192_tokens": 6.71,
+      "context_16384_tokens": 7.15
+    }
   },
   "inference_speed_estimate": {
     "generation_tokens_per_second": 106,
     "prompt_processing_tokens_per_second": 2300,
     "peak_vram_planning_gib": 6.71
   },
-  "data_status": "projected_estimate",
-  "measured": false,
-  "notes": "Model label copied from the uploaded report.",
-  "source": {
-    "source_document": "model_result_kids_vinothsir.docx",
-    "source_sections": {
-      "benchmark_results": "1. Benchmark results — fixed numeric estimates",
-      "model_memory": "2. Q5_K_M model size, KV cache and VRAM",
-      "kv_architecture": "FP16 KV-cache calculation",
-      "inference_speed": "3. RTX 5070 inference speed — single numeric estimates",
-      "ranking": "4. Which model is best for coding?"
-    },
-    "data_status": "projected_estimate",
-    "measured_on_target_gpu": false,
-    "note": "All numbers are transcribed from the uploaded report. They are point estimates, not measured benchmark runs."
-  }
+  "coding_rank_projection": 4,
+  "status": "projected_estimate",
+  "measured": false
 }
